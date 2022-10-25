@@ -7,17 +7,40 @@ let quotes = [
   `It don't matter if you win by an inch or a mile. Winning's winning.`
 ];
 
+
+
 // PART 1
 const titleEl = document.querySelector('#main-title');
-titleEl.textContent = 'Dom Toretto Homepage';
+let pageTitle = (str) => {
+  titleEl.textContent = str;
+}
+pageTitle('Dom Toretto Homepage');
+
+
+
 
 // PART 2
 const bodyEl = document.querySelector('body');
-bodyEl.style.backgroundColor = '#FFCC00';
+let pageColor = (color) => {
+  bodyEl.style.backgroundColor = color;
+}
+pageColor('#FFCC00');
 
-// PART 3 - First attempt to remove solely on the DOM without affecting HTML *************COME BACK TO REEVALUATE***************
 
-const favList = document.querySelector('#favorite-things');
+
+
+// PART 3
+
+// Lots of google - This specifically removes the last child
+const favList = document.querySelector('#favorite-things'); 
+
+let notHisFavorite = () => {
+  favList.removeChild(favList.lastElementChild);
+}
+
+notHisFavorite();
+
+// Part 3 - First attempt -----------
 // console.log(favList);
 // for(let i = 0; i < favList.length; i++){
 //   console.log(favList[i]);
@@ -27,46 +50,99 @@ const favList = document.querySelector('#favorite-things');
 //   console.log(favList[i]);
 // }
 
-// PART 3 - Added id to last li
-const removedLi = document.querySelector('.remove');
-removedLi.remove(); 
+// PART 3 - Added id to last li ---------
+// const removedLi = document.querySelector('.remove');
+// removedLi.remove(); 
+
+
 
 // PART 4
 const titleFontSize = document.querySelector('.special-title');
-titleFontSize.style.fontSize = '2rem';
 
-// PART 5 - Same as Part 3 *************COME BACK TO REEVALUATE***************
-const pastRaces = document.querySelector('#past-races');
-// let fakeRace = document.querySelector('#past-races');
-// for(let i = 0; i < fakeRace.clientHeight; i++){
-//   console.log(fakeRace[i]);
+let titleFont = (size) => {
+  titleFontSize.style.fontSize = size;
+}
+titleFont('2rem');
+
+
+
+
+// PART 5
+const pastRaces = document.querySelectorAll('#past-races > li');
+// console.log(pastRaces);
+
+// After Office Hours
+
+// Working code within the function
+
+let removeChicago = () => {
+  for(let i = 0; i < pastRaces.length; i++){
+    // console.log(pastRaces[i].includes('Chicago'));
+    let chicago = pastRaces[i].innerHTML.includes('Chicago');
+    if(chicago === true){
+      pastRaces[i].remove();
+    }
+  }
+  return pastRaces;
+}
+
+removeChicago();
+//===========================================================\\
+// Working code
+
+// for(let i = 0; i < pastRaces.length; i++){
+//   // console.log(pastRaces[i].includes('Chicago'));
+//   let chicago = pastRaces[i].innerHTML.includes('Chicago');
+//   if(chicago === true){
+//     pastRaces[i].remove();
+//   }
 // }
+//===========================================================\\
+// Stuff that did not work
+// let index = pastRaces.findIndex(race =>
+//   race.includes('Chicago')
+//   )
+
+// console.log(index);
+
+
 
 // PART 6
+const addToPastRaces = document.querySelector('#past-races');
 const addRace = document.createElement('li');
 // console.log(pastRaces);
-addRace.textContent = 'New York';
-// console.log(addRace);
-pastRaces.append(addRace);
+
+let moreRaces = (city) => {
+  addRace.textContent = city;
+  // console.log(addRace);
+  addToPastRaces.append(addRace);
+}
+moreRaces("New York");
+// moreRaces('Hawaii');
 
 // PART 7
-const domAdvMain = document.querySelector(".main");
-const newAdv = document.createElement('div');
-// console.log(domAdv);
-newAdv.classList.add('blog-post');
-// console.log(newAdv.classList);
-const newAdvTitle = document.createElement('h1'); // it says h2 but they're all h1's so I am basically a rebel
-newAdvTitle.textContent = "New York";
 
-const newAdvSummary = document.createElement('p');
-newAdvSummary.textContent = 'I think at some point, I drove through New York with a large magnet on my car'
+let newDescription = () => {
+  const domAdvMain = document.querySelector(".main");
+  const newAdv = document.createElement('div');
+  // console.log(domAdv);
+  newAdv.classList.add('blog-post', 'purple');
+  // console.log(newAdv.classList);
+  const newAdvTitle = document.createElement('h1'); // it says h2 but they're all h1's so I am basically a rebel
+  newAdvTitle.textContent = "New York";
 
-newAdv.append(newAdvTitle);
-newAdv.append(newAdvSummary);
-// console.log(newAdv);
+  const newAdvSummary = document.createElement('p');
+  newAdvSummary.textContent = 'I think at some point, I drove through New York with a large magnet on my car'
 
-domAdvMain.append(newAdv);
-// console.log(domAdvMain);
+  newAdv.append(newAdvTitle);
+  newAdv.append(newAdvSummary);
+  // console.log(newAdv);
+
+  domAdvMain.append(newAdv);
+  // console.log(domAdvMain);
+}
+newDescription();
+
 
 // PART 8
 const randomQuote = function() {
@@ -80,9 +156,29 @@ quoteEvent.addEventListener('click', (evt) => {
   }
 })
 
+
+
 // PART 9
 const allBlogs = document.querySelectorAll('.blog-post');
-// console.log(allBlogs);
-for(let i of allBlogs){
-  console.log(allBlogs[i]);
+console.log(allBlogs);
+
+let newEvent = () => {
+  for(let i =0; i < allBlogs.length; i++){
+    allBlogs[i].addEventListener("mouseout", () => {
+      // if(evt.target.classList = 'purple'){
+      //   evt.target.toggle;
+      // }
+
+      allBlogs[i].classList.toggle('red');
+    })
+
+    allBlogs[i].addEventListener("mouseenter", () => {
+      // if(evt.target.classList = 'red'){
+      //   evt.target.toggle;
+      // }
+
+      allBlogs[i].classList.toggle('red');
+    })
+  }
 }
+newEvent();
